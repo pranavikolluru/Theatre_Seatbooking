@@ -1,0 +1,267 @@
+#include <stdio.h>
+int main()
+{
+int seatno,remainder,quotient,noofseats,l,price,seatno1,remainder1,quotient1;
+int i=0,j=0,m=1,n=0,k=10,d=0;
+int a[10][10],b[10][10];		
+//initialising the price array
+		for(n=0;n<10;n=n+3,k=k+10) 
+		{
+			for(i=n;i<n+3;i++)
+			{ 
+				for(j=1;j<=10;j++)
+				{
+					b[i][j]=k;
+				}
+			}
+		}
+while(d!=3) //Loop runs until the user wants to quit.
+{
+	printf("Enter 1 if you want to choose ur seats using seat numbers\n2 for choosing according to the price of the seats\n3 for quit\n");
+	scanf("%d",&d);
+	//initialising the seats array
+	while(m<=9) 
+		{
+			for(i=0;i<10;i++)
+			{
+				for(j=1;j<=10;j++)
+				{
+					a[i][j]=m;
+					m++;
+				}
+			}
+		}
+	if(d==1)
+	{
+//printing the seat numbers array
+		printf("Seat numbers are:\n");
+		for(i=0;i<10;i++)
+		{
+			for(j=1;j<=10;j++)
+			{
+				printf("%d\t",a[i][j]);
+			}
+			printf("\n");
+		}
+//providing seats pricing to the user
+			printf("Seats pricing:\n Seat nos.1-30 cost Rs.10 each\n Seat nos.31-60 cost Rs.20 each\n Seat nos.61-90 cost Rs.30 each\n Seat nos.91-100 cost Rs.50 each\n");
+//getting the number of seats the user wants	
+			printf("enter the number of seats you want to buy\n");
+			scanf("%d",&noofseats);
+//for loop that runs as many times as the number of seats the user wants
+			for(l=0;l<noofseats;l++)
+			{
+				printf("Enter the seat number you want to buy\n");
+				scanf("%d",&seatno);
+				quotient=seatno/10; //gets the 'i' value.. which indicates the row in which the seat is in
+				remainder=seatno%10;// gets the j value; indicating the column which the seat is in.
+				if(a[quotient][remainder]!=0) //Checking for availability of seats
+				{
+ 					if(seatno>0 && seatno<31) 
+						{
+							printf("Seat number %d sold for Rs.10\n",seatno); 
+							for(i=0;i<10;i++)
+							{
+								for(j=1;j<=10;j++)
+								{
+									if(i==quotient && j==remainder)
+										{
+											a[i][j]=0; //changing the sold seats value to 0
+										}
+								}
+							}
+						}
+					else if(seatno>30 && seatno<61)
+						{
+							printf("Seat number %d sold for Rs.20\n",seatno);
+							for(i=0;i<10;i++)
+							{
+								for(j=1;j<=10;j++)
+								{
+									if(i==quotient && j==remainder)
+										{
+											a[i][j]=0;
+										}
+								}
+							}
+						}
+					else if(seatno>60 && seatno<91)
+						{
+							printf("Seat number %d sold for Rs.30\n",seatno);
+							for(i=0;i<10;i++)
+							{
+								for(j=1;j<=10;j++)
+								{
+									if(i==quotient && j==remainder)
+										{
+											a[i][j]=0;
+										}
+								}
+							}
+						}
+					else if(seatno>90 && seatno<100)
+						{
+							printf("Seat number %d sold for Rs.40\n",seatno);
+							for(i=0;i<10;i++)
+							{
+								for(j=1;j<=10;j++)
+								{
+									if(i==quotient && j==remainder)
+										{
+											a[i][j]=0;
+										}
+								}
+							}
+						}
+					else if(seatno==100)//100 has a separate condition,as dividing it by 10 gives 10 as quotient and 0 as remainder hence making it a[10][0].,which is wrong
+					{
+						printf("Seat no.100 sold for Rs.50\n");
+						quotient=9;
+						remainder=10;
+						for(i=0;i<10;i++)
+							{
+								for(j=1;j<=10;j++)
+								{
+									if(i==quotient && j==remainder)
+										{
+											a[i][j]=0;
+										}
+								}
+							}
+					}
+					else
+						printf("invalid seat number\n");
+				}
+				else
+				{
+					printf("Seat already sold!!\n");
+				}
+			}
+	}
+	if (d==2)
+	{
+//printing the price array
+			for(i=0;i<10;i++)
+			{
+				for(j=1;j<=10;j++)
+				{
+					printf("%d\t",b[i][j]);
+				}
+				printf("\n");
+			}
+		printf("Enter the price of a seat you wanna buy\n");
+		scanf("%d",&price);
+		switch(price)
+		{
+			case 10:
+				printf("Available seats are:\n");
+				for(i=0;i<3;i++)
+				{
+					for(j=1;j<=10;j++)
+					{
+						if(a[i][j]!=0)
+						printf("%d\t",a[i][j]);
+					}
+					printf("\n");
+				}
+				printf("please choose a seat number from the above list:\n");
+				scanf("%d",&seatno1);
+				quotient1=seatno1/10;
+				remainder1=seatno1%10;
+				if(a[quotient1][remainder1]!=0)
+				{
+					printf("Seat number %d sold for Rs.10\n",seatno1);
+					a[quotient1][remainder1]=0;
+				}
+				else
+				{
+					printf("The seat you selected is occupied!! Please choose another seat!!\n");
+				}
+				break;
+			case 20:
+				printf("Available seats are:\n");
+				for(i=3;i<6;i++)
+				{
+					for(j=1;j<=10;j++)
+					{
+						if(a[i][j]!=0)
+						printf("%d\t",a[i][j]);
+					}
+					printf("\n");
+				}
+				printf("please choose a seat number from the above list:\n");
+				scanf("%d",&seatno1);
+				quotient1=seatno1/10;
+				remainder1=seatno1%10;
+				if(a[quotient1][remainder1]!=0)
+				{
+					printf("Seat number %d sold for Rs.20\n",seatno1);
+					a[quotient1][remainder1]=0;
+				}
+				else
+				{
+					printf("The seat you selected is occupied!! Please choose another seat!!\n");
+				}
+				break;
+			case 30:
+				printf("Available seats are:\n");
+				for(i=6;i<9;i++)
+				{
+					for(j=1;j<=10;j++)
+					{
+						if(a[i][j]!=0)
+						printf("%d\t",a[i][j]);
+					}
+					printf("\n");
+				}
+				printf("please choose a seat number from the above list:\n");
+				scanf("%d",&seatno1);
+				quotient1=seatno1/10;
+				remainder1=seatno1%10;
+				if(a[quotient1][remainder1]!=0)
+				{
+					printf("Seat number %d sold for Rs.30\n",seatno1);
+					a[quotient1][remainder1]=0;
+				}
+				else
+				{
+					printf("The seat you selected is occupied!! Please choose another seat!!\n");
+				}
+				break;
+			case 40:
+				printf("Available seats are:\n");
+				for(i=9;i<10;i++)
+				{
+					for(j=1;j<=10;j++)
+					{
+						if(a[i][j]!=0)
+						printf("%d\t",a[i][j]);
+					}
+					printf("\n");
+				}
+				printf("please choose a seat number from the above list:\n");
+				scanf("%d",&seatno1);
+				quotient1=seatno1/10;
+				remainder1=seatno1%10;
+				if(a[quotient1][remainder1]!=0)
+				{
+					printf("Seat number %d sold for Rs.40\n",seatno1);
+					a[quotient1][remainder1]=0;
+				}
+				else
+				{
+					printf("The seat you selected is occupied!! Please choose another seat!!\n");
+				}
+				break;
+			default:
+			printf("invald price\n");
+		}
+	}
+	if(d!=1 && d!=2 && d!=3)
+	{
+		printf("invalid\n");
+	}
+}
+printf("thanks for shopping with us!!");
+return 0;
+}
